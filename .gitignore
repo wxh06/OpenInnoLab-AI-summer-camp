@@ -162,5 +162,8 @@ cython_debug/
 # TensorFlow
 saved_model/
 
+# MediaPipe
+*.task
+
 # predictions
 predictions.csv
