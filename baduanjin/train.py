@@ -1,4 +1,4 @@
-import os.path
+from pathlib import PurePath
 
 import tensorflow as tf
 
@@ -6,10 +6,10 @@ HEIGHT = 224
 WIDTH = 224
 MODEL_PATH = "saved_model/DenseNet121"
 
-DIR = os.path.dirname(__file__)
+BASE_DIR = PurePath(__file__).parent
 
 (ds_train, ds_test) = tf.keras.utils.image_dataset_from_directory(
-    os.path.join(DIR, "data"),
+    BASE_DIR / "data",
     label_mode="categorical",
     seed=0,
     validation_split=0.1,
@@ -45,4 +45,4 @@ model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accur
 
 model.fit(ds_train, epochs=1, validation_data=ds_test)
 
-model.save(os.path.join(DIR, MODEL_PATH))
+model.save(BASE_DIR / MODEL_PATH)

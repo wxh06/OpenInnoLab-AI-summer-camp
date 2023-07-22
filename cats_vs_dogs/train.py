@@ -1,4 +1,4 @@
-import os.path
+from pathlib import PurePath
 
 import tensorflow as tf
 import tensorflow_datasets as tfds
@@ -7,7 +7,7 @@ HEIGHT = 224
 WIDTH = 224
 MODEL_PATH = "saved_model/resnet50v2"
 
-DIR = os.path.dirname(__file__)
+BASE_DIR = PurePath(__file__).parent
 
 (ds_train, ds_test) = tfds.load(
     "CatsVsDogs",
@@ -47,4 +47,4 @@ model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"]
 
 model.fit(ds_train, epochs=10, validation_data=ds_test)
 
-model.save(os.path.join(DIR, MODEL_PATH))
+model.save(BASE_DIR / MODEL_PATH)
